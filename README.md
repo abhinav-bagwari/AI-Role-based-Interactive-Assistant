@@ -11,6 +11,8 @@ The older generic `multi-agent-system` prototype has been retired in favor of th
 
 ARIA is the current UI experience in this repo. It is served by the local Python backend so Rhea can save app workspaces and route live model calls server-side.
 
+<img width="1501" height="777" alt="image" src="https://github.com/user-attachments/assets/5f07156c-f369-499a-87ea-b77b4da7deaa" />
+
 What it includes:
 
 - six named AI employees: Rhea, Marcus, Zara, Kai, Priya, and Nox
