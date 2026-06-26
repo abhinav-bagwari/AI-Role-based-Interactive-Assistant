@@ -1,0 +1,39 @@
+{
+  "id": "product-to-delivery",
+  "name": "Full Product to Delivery",
+  "steps": [
+    {
+      "id": "discovery",
+      "objective": "Translate the owner's direction into scoped product and architecture decisions",
+      "owner_roles": ["pm", "architect"],
+      "review_roles": ["sm"],
+      "expected_artifacts": ["PRD", "ARCHITECTURE"],
+      "acceptance_criteria": [
+        "Owner direction is decomposed into actionable work",
+        "Architecture and delivery constraints are captured"
+      ]
+    },
+    {
+      "id": "build-and-verify",
+      "objective": "Create implementation outputs and test-ready validation guidance",
+      "owner_roles": ["dev", "qa"],
+      "review_roles": ["pm", "architect"],
+      "expected_artifacts": ["CODE", "API_DEFINITION", "TEST_PLAN", "DEPLOYMENT"],
+      "acceptance_criteria": [
+        "Implementation outputs are delivery-ready",
+        "Validation guidance covers the core quality risks"
+      ]
+    },
+    {
+      "id": "execution-readiness",
+      "objective": "Turn the approved work into an execution-ready delivery plan and final summary",
+      "owner_roles": ["sm"],
+      "review_roles": ["qa"],
+      "expected_artifacts": ["SPRINT_PLAN", "SUMMARY"],
+      "acceptance_criteria": [
+        "Execution order, checkpoints, and risks are explicit",
+        "Summary supports final Director delivery"
+      ]
+    }
+  ]
+}

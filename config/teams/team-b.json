@@ -1,0 +1,15 @@
+{
+  "id": "team-b",
+  "name": "Founder's Delivery Team",
+  "director_role": "director",
+  "workflow_id": "product-to-delivery",
+  "collaboration_style": "structured-collaboration",
+  "agents": [
+    { "role": "director", "name": "Director" },
+    { "role": "pm", "name": "Product Manager" },
+    { "role": "architect", "name": "Architect" },
+    { "role": "dev", "name": "Developer" },
+    { "role": "qa", "name": "QA Engineer" },
+    { "role": "sm", "name": "Scrum Master" }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/bmad-team-orchestrator/agent-message.schema.json",
+  "title": "AgentMessage",
+  "type": "object",
+  "required": [
+    "id",
+    "run_id",
+    "type",
+    "from_role",
+    "to_role",
+    "subject",
+    "body",
+    "created_at"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "type": {
+      "type": "string",
+      "enum": [
+        "TASK_ASSIGNMENT",
+        "INTERMEDIATE_OUTPUT",
+        "CLARIFICATION_REQUEST",
+        "REVIEW_REQUEST",
+        "REVIEW_FEEDBACK",
+        "FINAL_DELIVERY"
+      ]
+    },
+    "from_role": { "type": "string", "minLength": 1 },
+    "to_role": { "type": "string", "minLength": 1 },
+    "subject": { "type": "string", "minLength": 1 },
+    "body": { "type": "string", "minLength": 1 },
+    "payload": { "type": "object", "additionalProperties": true },
+    "created_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

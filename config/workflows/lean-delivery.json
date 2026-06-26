@@ -1,0 +1,39 @@
+{
+  "id": "lean-delivery",
+  "name": "Lean Delivery",
+  "steps": [
+    {
+      "id": "planning",
+      "objective": "Define owner scope, architecture direction, and execution readiness",
+      "owner_roles": ["pm", "architect", "sm"],
+      "review_roles": [],
+      "expected_artifacts": ["PRD", "ARCHITECTURE", "SPRINT_PLAN"],
+      "acceptance_criteria": [
+        "Owner goal and scope boundaries are clear",
+        "Architecture direction, execution plan, and risks are documented"
+      ]
+    },
+    {
+      "id": "implementation",
+      "objective": "Build implementation artifacts",
+      "owner_roles": ["dev"],
+      "review_roles": ["architect", "qa"],
+      "expected_artifacts": ["CODE", "API_DEFINITION", "DEPLOYMENT"],
+      "acceptance_criteria": [
+        "Code skeleton is modular",
+        "API and deployment outputs are complete"
+      ]
+    },
+    {
+      "id": "quality-gate",
+      "objective": "Finalize quality and release summary",
+      "owner_roles": ["qa", "sm"],
+      "review_roles": ["pm"],
+      "expected_artifacts": ["TEST_PLAN", "SUMMARY"],
+      "acceptance_criteria": [
+        "Test coverage strategy is explicit",
+        "Summary supports final Director delivery"
+      ]
+    }
+  ]
+}

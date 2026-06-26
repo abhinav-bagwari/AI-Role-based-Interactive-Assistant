@@ -1,0 +1,35 @@
+# Skeleton Structure
+
+```text
+bmad-team-orchestrator/
+  config/
+    teams/
+      team-a.json
+      team-b.json
+    workflows/
+      lean-delivery.json
+      product-to-delivery.json
+  docs/
+    architecture.md
+    component-design.md
+    protocol-schema.json
+    sample-workflow-execution.md
+    skeleton-structure.md
+    ui-wireframe.md
+  src/
+    bmad_team_orchestrator/
+      __main__.py
+      api_server.py
+      bmad_catalog.py
+      director.py
+      models.py
+      protocol.py
+      runner.py
+      agents/
+        base.py
+        adapter.py
+  tests/
+    test_runtime.py
+  ui/
+    index.html
+```

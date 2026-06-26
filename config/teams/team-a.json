@@ -1,0 +1,15 @@
+{
+  "id": "team-a",
+  "name": "Founder's Core Team",
+  "director_role": "director",
+  "workflow_id": "lean-delivery",
+  "collaboration_style": "fast-iteration",
+  "agents": [
+    { "role": "director", "name": "Director" },
+    { "role": "pm", "name": "Product Manager" },
+    { "role": "architect", "name": "Architect" },
+    { "role": "dev", "name": "Developer" },
+    { "role": "qa", "name": "QA Engineer" },
+    { "role": "sm", "name": "Scrum Master" }
+  ]
+}

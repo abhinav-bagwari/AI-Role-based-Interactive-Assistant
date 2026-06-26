@@ -1,0 +1,1 @@
+"""BMAD agent adapters."""
