@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
 
-DEFAULT_APPLICATIONS_ROOT = Path("/Users/abhinavbagwari/ai/bmad-applications")
+DEFAULT_APPLICATIONS_ROOT = Path(__file__).resolve().parents[2] / "bmad-applications"
 
 
 @dataclass(frozen=True)

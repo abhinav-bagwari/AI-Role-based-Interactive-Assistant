@@ -1430,7 +1430,14 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script type="text/babel" data-presets="react">
+    <script>
+      Babel.registerPreset("react-classic", function () {
+        return {
+          presets: [[Babel.availablePresets.react, { runtime: "classic" }]],
+        };
+      });
+    </script>
+    <script type="text/babel" data-presets="react-classic">
       const { useEffect, useReducer, useRef, useState } = React;
       const transition = React.startTransition || ((fn) => fn());
 
@@ -1938,6 +1945,19 @@ What would you like the team to work on?`;
 
       function loadStoredWorkspace(fallback) {
         try {
+          const params = new URLSearchParams(window.location.search);
+          const freshChatRequested = params.has("newChat") || params.has("fresh") || params.has("reset");
+          if (freshChatRequested) {
+            window.localStorage.removeItem(WORKSPACE_STORAGE_KEY);
+            params.delete("newChat");
+            params.delete("fresh");
+            params.delete("reset");
+            const nextQuery = params.toString();
+            const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}${window.location.hash}`;
+            window.history.replaceState({}, document.title, nextUrl);
+            return fallback;
+          }
+
           const raw = window.localStorage.getItem(WORKSPACE_STORAGE_KEY);
           if (!raw) {
             return fallback;
@@ -1955,6 +1975,8 @@ What would you like the team to work on?`;
 
       function workspaceReducer(state, action) {
         switch (action.type) {
+          case "RESET_WORKSPACE":
+            return createDefaultInitialState();
           case "SET_ACTIVE_CHANNEL":
             return {
               ...state,
@@ -3740,6 +3762,14 @@ Write the next message for ${agent.name} in ${mode === "dm" ? "a private DM" : "
           transition(() => dispatch({ type: "SET_ACTIVE_TASK", payload }));
         }
 
+        function startNewChat() {
+          setComposer("");
+          setTaskModalOpen(false);
+          setProfileAgentId(null);
+          setRelayError("");
+          transition(() => dispatch({ type: "RESET_WORKSPACE" }));
+        }
+
         function enqueue(work) {
           queueRef.current = queueRef.current
             .then(() => work())
@@ -4237,7 +4267,7 @@ Write the next message for ${agent.name} in ${mode === "dm" ? "a private DM" : "
                   "I finished the delivery package, but I could not save it to disk yet.",
                   "",
                   `Expected backend: ${getApplicationBackendBaseUrl() || window.location.origin}`,
-                  `Target folder: /Users/abhinavbagwari/ai/bmad-applications/${appName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
+                  `Target folder: configured BMAD_APPLICATIONS_ROOT or ./bmad-applications/${appName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
                   "",
                   `Backend error: ${error.message}`,
                 ].join("\n"),
@@ -4753,6 +4783,13 @@ Write the next message for ${agent.name} in ${mode === "dm" ? "a private DM" : "
                       </p>
                     </div>
                     <div className="header-actions flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={startNewChat}
+                        className="toolbar-button rounded-full border border-white/12 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-cloud-200/76 transition hover:border-white/22 hover:bg-white/[0.08] hover:text-cloud-50"
+                      >
+                        New Chat
+                      </button>
                       <button
                         type="button"
                         disabled={!hasLiveTopic}

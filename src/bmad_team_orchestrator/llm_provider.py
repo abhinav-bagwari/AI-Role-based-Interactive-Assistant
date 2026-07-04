@@ -356,6 +356,7 @@ def build_provider_from_env() -> BaseLLMProvider:
     extra_headers: Dict[str, str] = {}
     temperature_raw = os.getenv("BMAD_LLM_TEMPERATURE", "0.2")
     timeout_raw = os.getenv("BMAD_LLM_TIMEOUT_SECONDS", "90")
+    loaded_codex_provider = False
 
     if not model or not base_url or not api_key or not wire_api:
         codex_config = _load_codex_provider_config()
@@ -369,6 +370,7 @@ def build_provider_from_env() -> BaseLLMProvider:
                 wire_api = wire_api or str(codex_config.get("wire_api") or "")
                 provider_name = str(codex_config.get("provider_name") or provider_name)
                 extra_headers = dict(codex_config.get("extra_headers") or {})
+                loaded_codex_provider = True
 
     if not model:
         return StubLLMProvider(
@@ -383,9 +385,9 @@ def build_provider_from_env() -> BaseLLMProvider:
                 "Set BMAD_LLM_BASE_URL (or OPENAI_BASE_URL) to enable live BMAD-agent execution.",
             )
 
-    if provider_name == "Oracle Code Assist" and not api_key:
+    if loaded_codex_provider and not api_key:
         return StubLLMProvider(
-            "Oracle Code Assist config was found, but no Codex API key was available in ~/.codex/auth.json.",
+            "Codex provider config was found, but no API key was available in ~/.codex/auth.json.",
         )
 
     try:

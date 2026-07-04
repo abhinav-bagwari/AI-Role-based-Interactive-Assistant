@@ -15,22 +15,22 @@ class LLMProviderConfigTests(unittest.TestCase):
             codex_dir.mkdir()
             (codex_dir / "config.toml").write_text(
                 """
-model_provider = "oca"
+model_provider = "example"
 profile = "gpt-5-3-codex"
 model = "top-level-model"
 
-[model_providers.oca]
-base_url = "https://example.oracle.test/litellm"
+[model_providers.example]
+base_url = "https://provider.example.test/v1"
 model = "provider-model"
-name = "Oracle Code Assist"
+name = "Codex Example Provider"
 wire_api = "responses"
 
-  [model_providers.oca.http_headers]
+  [model_providers.example.http_headers]
   client = "codex-cli"
 
 [profiles.gpt-5-3-codex]
 model = "gpt-5.5"
-model_provider = "oca"
+model_provider = "example"
 """,
                 encoding="utf-8",
             )
@@ -39,9 +39,9 @@ model_provider = "oca"
             config = _load_codex_provider_config(home=home)
 
             self.assertEqual(config["model"], "gpt-5.5")
-            self.assertEqual(config["base_url"], "https://example.oracle.test/litellm")
+            self.assertEqual(config["base_url"], "https://provider.example.test/v1")
             self.assertEqual(config["wire_api"], "responses")
-            self.assertEqual(config["provider_name"], "Oracle Code Assist")
+            self.assertEqual(config["provider_name"], "Codex Example Provider")
             self.assertEqual(config["extra_headers"], {"client": "codex-cli"})
             self.assertEqual(config["api_key"], "secret-value")
 
